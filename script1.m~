@@ -84,4 +84,3 @@ for i = 1:size(workMap,1)
 end
         
 % End process timer
-toc

@@ -23,11 +23,11 @@ if C2 <= 1
     theta1a = atan2(S1a, C1a);
     theta1b = atan2(S1b, C1b);
 else
-    warning('Base not suitable');
-    theta1a = NaN;
-    theta2a = NaN;
-    theta1b = NaN;
-    theta2b = NaN;
+%     warning('Base not suitable');
+    theta1a = [];
+    theta2a = [];
+    theta1b = [];
+    theta2b = [];
 end
 
 % xBase = xEnd - (L1 * cos(theta1a) + L2 * cos(theta1a + theta2a));

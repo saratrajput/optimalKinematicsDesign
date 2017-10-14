@@ -1,0 +1,14 @@
+Trying to make the script faster
+	- removed the warning in function igm
+	- changed returns of theta from Nan to empty array
+
+Seems to run faster now
+	- should use timer
+	- Elapsed time is 27 seconds.
+		- much faster than before.
+
+Now should try to find the base from the given theta values and check how much 
+of the work area it can cover from there.
+	- created a new function findBase to do this.
+
+Also find a dark theme for matlab. 
