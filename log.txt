@@ -12,3 +12,19 @@ of the work area it can cover from there.
 	- created a new function findBase to do this.
 
 Also find a dark theme for matlab. 
+
+--------------------------------------------------------------------------------
+
+dom 15 ott 2017, 17.08.54, CEST
+
+Testing the new function findBase
+	- findBase works well
+	- no need of storing theta values now
+	- Problems
+		- right now findBase is only getting base for the first two theta values
+	- algorithm runs much faster now - only 10 seconds
+
+Next Step
+	- find how many points the end effector can cover from the given base
+		- need to fix the new base and calculate how many points it can reach in
+		workArea
