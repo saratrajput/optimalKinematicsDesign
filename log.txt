@@ -28,3 +28,26 @@ Next Step
 	- find how many points the end effector can cover from the given base
 		- need to fix the new base and calculate how many points it can reach in
 		workArea
+--------------------------------------------------------------------------------
+
+lun 16 ott 2017, 18.32.48, CEST
+Should also check for the obstacles and make sure that the base returned are not
+falling in the area defined by the obstacles.
+	- trying a if statement with workMap(base1, base2) == 1 to decide to append
+	base values or not.
+
+New problem with findBase
+	- it is returning values greater than the defined workArea i.e. 400x400
+--------------------------------------------------------------------------------
+
+mar 17 ott 2017, 19.00.28, CEST
+Currently having problem with non integer values in the array.
+	- solved with using round before base1 and base2.
+
+
+Next is to calculate how many squares each base position can cover.
+
+--------------------------------------------------------------------------------
+
+mer 18 ott 2017, 23.38.39, CEST
+Should also check for the obstacles.

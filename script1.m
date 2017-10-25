@@ -1,8 +1,9 @@
 % clear all
-keepvars = {'oldBase'};
+keepvars = {'saveEndEffectorPos'};
 
 clearvars('-except', keepvars{:});
-% close all
+% clear all
+close all
 
 % Start process timer
 tic
@@ -85,14 +86,26 @@ for i = 1:size(workMap,1)
         if isempty(theta1a)
             ;
         else
-%             theta = [theta; theta1a, theta2a, theta1b, theta2b];
+            %   theta = [theta; theta1a, theta2a, theta1b, theta2b];
             [base1, base2] = findBase(L1, L2, theta1a, theta2a);
-            base = [base; base1, base2];
+            
+            % to check if base values greater than workMap area
+            if base1 > size(workMap,1) | base2 > size(workMap,2)
+                ;
+            else
+                % to check for obstacles
+                if (workMap(round(base1), round(base2)) == 1)
+                    ;
+                else
+                
+                base = [base; base1, base2];
+                end
+            end
         end
         
-%         [base1, base2] = findBase(L1, L2, theta(1, i), theta(2,i));
-%         base = [base; base1, base2];
-%         base2 = [base2; findBase(L1, L2, theta(3, i), theta(4,i))];
+        %    [base1, base2] = findBase(L1, L2, theta(1, i), theta(2,i));
+        %    base = [base; base1, base2];
+        %    base2 = [base2; findBase(L1, L2, theta(3, i), theta(4,i))];
     end
 end
         
