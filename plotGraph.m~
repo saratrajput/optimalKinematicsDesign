@@ -1,0 +1,57 @@
+% function [ output_args ] = plotGraph( input_args )
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+close all;
+
+%% plot target area
+L1 = 100;
+L2 = 200;
+targetArea = [300, 300];
+
+targetDimension = [50, 50];
+
+rectangle('Position',[targetArea(1), targetArea(2), ...
+    targetDimension(1), targetDimension(2)] );
+
+%% plot obstacles
+originO1 = [300, 150];
+originO2 = [100, 300];
+originO3 = [200, 100];
+r = 50;
+
+hold on
+viscircles(originO1, r)
+hold on
+viscircles(originO2, r)
+hold on
+viscircles(originO3, r)
+
+%% plot joints
+hold on
+basePose = [201; 251];
+plot(basePose(1),basePose(2),'rx')
+
+endPose = [300, 30];
+
+% [ ~, ~, theta1, theta2] = igm(endPose(1), endPose(2), basePose(1),...
+%     basePose(2), L1, L2);
+theta1 = 1.4453;
+theta2 = -1.9713;
+joint1Pose = basePose + [L1 * cos(theta1); L1 * sin(theta1)];
+% joint2Pose = joint1Pose + [L2 * cos(theta1+theta2); L2*sin(theta1+theta2)];
+
+xEnd = basePose(1) + L1 * cos(theta1) + L2 * cos(theta1 + theta2);
+yEnd = basePose(2) + L1 * sin(theta1) + L2 * sin(theta1 + theta2);
+
+
+hold on
+line([basePose(1),joint1Pose(1)],[basePose(2),joint1Pose(2)]);
+hold on
+% line([joint1Pose(1),endPose(1)],[joint1Pose(2),endPose(2)]);
+
+line([joint1Pose(1),xEnd],[joint1Pose(2),yEnd]);
+
+
+
+

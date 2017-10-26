@@ -1,4 +1,4 @@
-function [ xEnd, yEnd ] = dgm( xBase,yBase, L2, theta1, theta2)
+function [ xEnd, yEnd ] = dgm( xBase,yBase, theta1, theta2)
 %UNTITLED4 Summary of this function goes here
 %   Detailed explanation goes here
 L1 = 100;

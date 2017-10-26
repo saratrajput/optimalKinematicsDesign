@@ -51,3 +51,11 @@ Next is to calculate how many squares each base position can cover.
 
 mer 18 ott 2017, 23.38.39, CEST
 Should also check for the obstacles.
+--------------------------------------------------------------------------------
+
+gio 26 ott 2017, 14.50.39, CEST
+How to plot a line.
+	- line plot done.
+
+Had problems with plotting dgm in the end. Was due to wrongly declared L2. 
+	- should use global variables instead.
