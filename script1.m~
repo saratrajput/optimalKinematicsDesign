@@ -18,6 +18,7 @@ workMap = zeros(400, 400);
 % 
 % rectangle('Position',[0, 0, size(workMap,1), size(workMap,2));
 %% robotDefinition
+global L1 L2 joint1Min joint1Max joint2Min joint2Max
 L1 = 100;
 L2 = 100;
 
@@ -28,15 +29,15 @@ joint2Min = -141*(pi/180);
 joint2Max = 141*(pi/180);
 
 %% target area
+global targetArea targetDimension
 targetArea = [300, 300];
 
 targetDimension = [50, 50]; 
 
 workMap(targetArea(1):targetArea(1)+targetDimension(1), targetArea(2):targetArea(2)...
     +targetDimension(1)) = 1;
-hold on;
-rectangle('Position',[targetArea(1), targetArea(2), ...
-    targetDimension(1), targetDimension(2)] );
+% hold on;
+% rectangle('Position',[targetArea(1), targetArea(2), targetDimension(1), targetDimension(2)] );
 
 %% obstacleDefinition
 
@@ -49,12 +50,12 @@ workMap(originO1(1)-r/2: originO1(1)+r/2, originO1(2)-r/2: originO1(2)+r/2) = 1;
 workMap(originO2(1)-r/2: originO2(1)+r/2, originO2(2)-r/2: originO2(2)+r/2) = 1;
 workMap(originO3(1)-r/2: originO3(1)+r/2, originO3(2)-r/2: originO3(2)+r/2) = 1;
 
-hold on
-viscircles(originO1, r)
-hold on
-viscircles(originO2, r)
-hold on
-viscircles(originO3, r)
+% hold on
+% viscircles(originO1, r)
+% hold on
+% viscircles(originO2, r)
+% hold on
+% viscircles(originO3, r)
 
 %% plots
 % cols = checkObstacles( originO1(1), originO1(2), originO2(1), originO2(2), originO3(1), originO3(2), r )
@@ -112,7 +113,38 @@ for m = 1:size(base,1)
     numTargetReach = dgmBwlimits(base(m,1), base(m,2));
     base(m, 3) = numTargetReach;
 end
-    
+
+
+%% getting the max element
+% maxTargetReached = max(base(:,3));
+% bestBases = [];
+% for k = 1 : size(base,1)
+%     if ((base(k,3)) == maxTargetReached)
+%         bestBases = [bestBases; base(k,[1,2])];
+%     end
+% end
+            
+
+%% Plotting best bases
+myBase = [201;251];
+eePos = [];
+for m = targetArea(1):10:targetArea(1)+targetDimension(1)
+    for n = targetArea(2):10:targetArea(2)+targetDimension(2)
+        [ thetaup1, thetaup2, thetadown1, thetadown2] = igm( m, n, ...
+            myBase(1), myBase(2),L1, L2);
+        
+%         if checkThetaLimit(thetaup1, thetaup2) == 1
+%             endEffectorPos = [endEffectorPos;m,n, thetaup1, thetaup2];
+          if checkThetaLimit( thetadown1, thetadown2) == 1
+              eePos = [eePos;m,n,thetadown1, thetadown2];
+        end
+    end
+end
+
+%% plot
+for i = 1:size(eePos)
+    plotGraph(myBase, eePos(i, [1,2]),ePos(i,3),
+
 % End process timer
 toc
 

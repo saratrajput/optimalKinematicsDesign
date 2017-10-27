@@ -113,8 +113,21 @@ for m = 1:size(base,1)
     numTargetReach = dgmBwlimits(base(m,1), base(m,2));
     base(m, 3) = numTargetReach;
 end
+
+
+%% getting the max element
+% maxTargetReached = max(base(:,3));
+% bestBases = [];
+% for k = 1 : size(base,1)
+%     if ((base(k,3)) == maxTargetReached)
+%         bestBases = [bestBases; base(k,[1,2])];
+%     end
+% end
+            
+
+%% Plotting best bases
 myBase = [201;251];
-endEffectorPos = [];
+eePos = [];
 for m = targetArea(1):10:targetArea(1)+targetDimension(1)
     for n = targetArea(2):10:targetArea(2)+targetDimension(2)
         [ thetaup1, thetaup2, thetadown1, thetadown2] = igm( m, n, ...
@@ -123,11 +136,15 @@ for m = targetArea(1):10:targetArea(1)+targetDimension(1)
 %         if checkThetaLimit(thetaup1, thetaup2) == 1
 %             endEffectorPos = [endEffectorPos;m,n, thetaup1, thetaup2];
           if checkThetaLimit( thetadown1, thetadown2) == 1
-            endEffectorPos = [endEffectorPos;m,n,thetadown1, thetadown2];
+              eePos = [eePos;m,n,thetadown1, thetadown2];
         end
     end
 end
 
+%% plot
+for i = 1:size(eePos)
+    plotGraph(myBase, eePos(i,3), eePos(i,4));
+end
 
 % End process timer
 toc

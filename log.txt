@@ -59,3 +59,10 @@ How to plot a line.
 
 Had problems with plotting dgm in the end. Was due to wrongly declared L2. 
 	- should use global variables instead.
+--------------------------------------------------------------------------------
+
+ven 27 ott 2017, 08.57.54, CEST
+Plotting done successfully. Plots like an animated plot.
+
+Should plot all the best bases, and repeat the above plot for all the best 
+bases.

@@ -1,8 +1,9 @@
-% function [ output_args ] = plotGraph( input_args )
+function plotGraph( basePose, theta1, theta2)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
-close all;
+% close all;
+global L1 L2
 
 %% plot target area
 % L1 = 100;
@@ -29,15 +30,15 @@ viscircles(originO3, r)
 
 %% plot joints
 hold on
-basePose = [201; 251];
+% basePose = [201; 251];
 plot(basePose(1),basePose(2),'rx')
 
-endPose = [300, 350];
+% endPose = [300, 350];
 
 % [ ~, ~, theta1, theta2] = igm(endPose(1), endPose(2), basePose(1),...
 %     basePose(2), L1, L2);
-theta1 = 1.5807;
-theta2 = -1.5907;
+% theta1 = 1.5807;
+% theta2 = -1.5907;
 joint1Pose = basePose + [L1 * cos(theta1); L1 * sin(theta1)];
 % joint2Pose = joint1Pose + [L2 * cos(theta1+theta2); L2*sin(theta1+theta2)];
 
@@ -46,11 +47,18 @@ yEnd = basePose(2) + L1 * sin(theta1) + L2*sin(theta1 + theta2);
 
 
 hold on
-line([basePose(1),joint1Pose(1)],[basePose(2),joint1Pose(2)]);
+l1 = line([basePose(1),joint1Pose(1)],[basePose(2),joint1Pose(2)]);
 hold on
 % line([joint1Pose(1),endPose(1)],[joint1Pose(2),endPose(2)]);
 
-line([joint1Pose(1),xEnd],[joint1Pose(2),yEnd]);
+l2 = line([joint1Pose(1),xEnd],[joint1Pose(2),yEnd]);
+% delete(l1);
+% delete(l2);
+pause(0.5);
+delete(l1);
+delete(l2);
+hold on;
+
 
 
 
