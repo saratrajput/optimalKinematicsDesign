@@ -66,3 +66,10 @@ Plotting done successfully. Plots like an animated plot.
 
 Should plot all the best bases, and repeat the above plot for all the best 
 bases.
+--------------------------------------------------------------------------------
+
+sab 28 ott 2017, 13.48.11, CEST
+Writing description for each function.
+
+Last base position is not plotting.
+Should check plot also for elbow down position.

@@ -1,11 +1,8 @@
 function insideLimit = checkThetaLimit( theta1, theta2)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
-% joint1Min = -132*(pi/180);
-% joint1Max = 132*(pi/180);
-% 
-% joint2Min = -141*(pi/180);
-% joint2Max = 141*(pi/180);
+%% checkThetaLimit Checks if joint angles are within the joint limits with 
+%theta1 and theta2 as input and gives insideLimit as out where:
+%insideLimit = 1 if theta1 and theta2 are within joint limits.
+%insideLimit = 0 if theta1 and theta2 are outside joint limits.
 global joint1Min joint1Max joint2Min joint2Max
 
 

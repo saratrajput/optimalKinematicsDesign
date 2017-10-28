@@ -1,7 +1,7 @@
 function [ theta1a, theta2a, theta1b, theta2b] = igm( xEnd, yEnd, xBase, yBase,L1, L2)
-%UNTITLED5 Summary of this function goes here
-%   Detailed explanation goes here
-
+%% igm Calculates theta1 and theta2 for both elbow up and elbow down 
+%configuration given end-effector and base position and the link lengths
+%as input.
 C2 = ((xEnd-xBase)^2 + (yEnd-yBase)^2 - L1^2 - L2^2) / (2*L1*L2);
 if C2 <= 1
     theta2a = atan2(sqrt(1-C2^2), C2);
@@ -30,8 +30,6 @@ else
     theta2b = [];
 end
 
-% xBase = xEnd - (L1 * cos(theta1a) + L2 * cos(theta1a + theta2a));
-% yBase = yEnd - (L1 * sin(theta1a) + L2 * sin(theta1a + theta2a));
 
 end
 

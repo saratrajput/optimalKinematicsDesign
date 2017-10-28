@@ -1,6 +1,9 @@
 function [ outOfLimit ] = checkWorkMap( input1, input2)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%checkWorkMap Checks if the given input: base position, end-effector
+%position or joint position are within the the limits of the work map.
+%outOfLimit = 0 if the input is within work map limits.
+%outOfLimit = 1 if the input is outside work map limits.
+
 workMap= [400;400];
 outOfLimit = 0;
 if input1 > workMap(1) || input2 > workMap(2)
