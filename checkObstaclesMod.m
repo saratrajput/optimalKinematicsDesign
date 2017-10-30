@@ -2,6 +2,7 @@ function [ cols ] = checkObstaclesMod( XA, YA, XB, YB, obs )
 %% checkObstacles check if one given segment intersect one given obstacle
 %returns 1 if collides, 0 if not
 %segment AB, disc obstacle : center C, radius R
+%obs is taken as input which is the obstacles matrix.
 cols = 0;
 for i = 1 : size(obs, 1)
 % cols = 0;

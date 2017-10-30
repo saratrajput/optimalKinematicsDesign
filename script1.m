@@ -25,9 +25,11 @@ joint2Max = 141*(pi/180);
 
 %% target area
 global targetArea targetDimension
-targetArea = [300, 300];
+% targetArea = [300, 300];
+targetArea = [50, 250];
 
-targetDimension = [50, 50]; 
+targetDimension = [50, 50];
+% targetDimension = [50, 100];
 
 workMap(targetArea(1):targetArea(1)+targetDimension(1), targetArea(2):targetArea(2)...
     +targetDimension(1)) = 1;
@@ -37,7 +39,9 @@ global obs
 obs = [75, 150, 30;...
     200, 300, 30;...
     200, 100, 30;...
-    300, 200, 25];
+    300, 200, 25;...
+    275, 350, 20;...
+    350, 250, 15 ];
 
 for i = 1 : size(obs, 1)
 workMap(obs(i,1)-obs(i,3)/2: obs(i,1)+obs(i,3)/2, ...
@@ -58,30 +62,21 @@ for i = 1:50:size(workMap,1)
         xEnd = targetArea(1);
         yEnd = targetArea(2);
         
-        
-        
         if isempty(igm(xEnd,yEnd,xBase,yBase,L1,L2))
-            
             ;
         else
-            
             % to check if base values greater than workMap area
-            
             if checkWorkMap(i, j)
-                
                 ;
             else
                 % to check for obstacles
                 if (workMap(i, j) == 1)
                     ;
                 else
-                    
                     base = [base; i, j];
                 end
             end
         end
-        
-        
     end
 end
 

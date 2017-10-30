@@ -16,8 +16,9 @@ xEnd = basePose(1) + L1 * cos(theta1) + L2*cos(theta1 + theta2);
 yEnd = basePose(2) + L1 * sin(theta1) + L2*sin(theta1 + theta2);
 
 if checkWorkMap(joint1Pose(1), joint1Pose(2)) == 0
-    if checkObstaclesMod(basePose(1), basePose(2), joint1Pose(1),...
-            joint1Pose(2), obs) == 0
+    if (checkObstaclesMod(basePose(1), basePose(2), joint1Pose(1),...
+            joint1Pose(2), obs) == 0) && (checkObstaclesMod(joint1Pose(1),...
+            joint1Pose(2), xEnd, yEnd, obs) == 0)
         hold on
         l1 = line([basePose(1),joint1Pose(1)],[basePose(2),joint1Pose(2)]);
         hold on
