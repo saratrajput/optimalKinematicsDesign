@@ -33,15 +33,17 @@ workMap(targetArea(1):targetArea(1)+targetDimension(1), targetArea(2):targetArea
     +targetDimension(1)) = 1;
 
 %% obstacleDefinition
+global obs
+obs = [75, 150, 30;...
+    200, 300, 30;...
+    200, 100, 30;...
+    300, 200, 25];
 
-originO1 = [300, 150];
-originO2 = [100, 300];
-originO3 = [200, 100];
-r = 50;
-
-workMap(originO1(1)-r/2: originO1(1)+r/2, originO1(2)-r/2: originO1(2)+r/2) = 1;
-workMap(originO2(1)-r/2: originO2(1)+r/2, originO2(2)-r/2: originO2(2)+r/2) = 1;
-workMap(originO3(1)-r/2: originO3(1)+r/2, originO3(2)-r/2: originO3(2)+r/2) = 1;
+for i = 1 : size(obs, 1)
+workMap(obs(i,1)-obs(i,3)/2: obs(i,1)+obs(i,3)/2, ...
+    obs(i,2)-obs(i,3)/2: obs(i,2)+obs(i,3)/2) = 1;
+    
+end
 
 
 %% get best base
@@ -57,26 +59,24 @@ for i = 1:50:size(workMap,1)
         yEnd = targetArea(2);
         
         
-%         [theta1a,theta2a,theta1b,theta2b] = igm(xEnd,yEnd,xBase,yBase,L1,L2);
+        
         if isempty(igm(xEnd,yEnd,xBase,yBase,L1,L2))
-%         if isempty(theta1a)
+            
             ;
         else
-            % theta = [theta; theta1a, theta2a, theta1b, theta2b];
-%             [base1, base2] = findBase(L1, L2, theta1a, theta2a);
-%             base1 = xBase;
-%             base2 = yBase;
+            
             % to check if base values greater than workMap area
-%             if base1 > size(workMap,1) | base2 > size(workMap,2)
-            if i > size(workMap,1) || j > size(workMap,2)
+            
+            if checkWorkMap(i, j)
+                
                 ;
             else
                 % to check for obstacles
                 if (workMap(i, j) == 1)
                     ;
                 else
-                
-                base = [base; i, j];
+                    
+                    base = [base; i, j];
                 end
             end
         end
@@ -106,13 +106,13 @@ rectangle('Position',[targetArea(1), targetArea(2), ...
     targetDimension(1), targetDimension(2)] );
 
 % plot obstacles
-hold on
-viscircles(originO1, r);
-hold on
-viscircles(originO2, r);
-hold on
-viscircles(originO3, r);
+for k = 1 : size(obs, 1)
     hold on
+    viscircles(obs(k,1:2), obs(k,3));
+end
+
+hold on
+
 for i = 1:size(bestBases)
     plot(bestBases(i,1), bestBases(i,2), 'bx');
     hold on
@@ -122,7 +122,7 @@ for i = 1 : size(bestBases,1)
     myBase = [bestBases(i,1);bestBases(i,2)];
     % plotCoverage(myBase, 1) for elbow up configuration
     % plotCoverage(myBase, 2) for elbow down configuration
-    plotCoverage(myBase, 1);
+    plotCoverage(myBase, 2);
 
 end
 

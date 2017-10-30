@@ -1,94 +1,40 @@
-function plotGraph( basePose)
+function ee = plotGraph( basePose,theta1, theta2)
+%% plotGraph Plots the base, joint and end-effector position with base 
+% position, theta1 and theta2 as input.
+% Calculates joint position and end-effector position using DGM
 
-global L1 L2 targetArea targetDimension
+global L1 L2 targetArea targetDimension obs
 
-%% plot target area
-% targetArea = [300, 300];
-% 
-% targetDimension = [50, 50];
-% 
-% rectangle('Position',[targetArea(1), targetArea(2), ...
-%     targetDimension(1), targetDimension(2)] );
-
-%% plot obstacles
-% originO1 = [300, 150];
-% originO2 = [100, 300];
-% originO3 = [200, 100];
-% r = 50;
-% 
-% hold on
-% viscircles(originO1, r)
-% hold on
-% viscircles(originO2, r)
-% hold on
-% viscircles(originO3, r)
-
-%%
-hold on;
-plot(basePose(1),basePose(2),'rx')
-    
-% myBase = [201;251];
-eePos = [];
-% figure();
-for m = targetArea(1):10:targetArea(1)+targetDimension(1)
-    for n = targetArea(2):10:targetArea(2)+targetDimension(2)
-        [ thetaup1, thetaup2, thetadown1, thetadown2] = igm( m, n, ...
-            basePose(1), basePose(2),L1, L2);
-        
-%         if checkThetaLimit(thetaup1, thetaup2) == 1
-%             endEffectorPos = [endEffectorPos;m,n, thetaup1, thetaup2];
-          if checkThetaLimit( thetadown1, thetadown2) == 1
-              eePos = [eePos;m,n,thetadown1, thetadown2];
-        end
-    end
-end
-
-%% plot
-for i = 1:size(eePos)
-%     plotGraph(myBase, eePos(i,3), eePos(i,4));
-%     plot(basePose(1),basePose(2),'rx')
-    
-    joint1Pose = basePose + [L1 * cos(eePos(i,3)); L1 * sin(eePos(i,4))];
-    
-    xEnd = basePose(1) + L1 * cos(cos(eePos(i,3)) + L2*cos(eePos(i,3)) + cos(eePos(i,4));
-    yEnd = basePose(2) + L1 * sin(cos(eePos(i,3)) + L2*sin(eePos(i,3)) + eePos(i,4));
-    
-    
-    hold on
-    l1 = line([basePose(1),joint1Pose(1)],[basePose(2),joint1Pose(2)]);
-    hold on
-    
-    l2 = line([joint1Pose(1),xEnd],[joint1Pose(2),yEnd]);
-    
-    pause(0.5);
-    delete(l1);
-    delete(l2);
-    hold on;
-
-end
 
 %% plot joints
-% hold on
-% plot(basePose(1),basePose(2),'rx')
-% 
-% joint1Pose = basePose + [L1 * cos(theta1); L1 * sin(theta1)];
-% 
-% xEnd = basePose(1) + L1 * cos(theta1) + L2*cos(theta1 + theta2);
-% yEnd = basePose(2) + L1 * sin(theta1) + L2*sin(theta1 + theta2);
-% 
-% 
-% hold on
-% l1 = line([basePose(1),joint1Pose(1)],[basePose(2),joint1Pose(2)]);
-% hold on
-% 
-% l2 = line([joint1Pose(1),xEnd],[joint1Pose(2),yEnd]);
-% 
-% pause(0.5);
-% delete(l1);
-% delete(l2);
-% hold on;
+hold on
+plot(basePose(1),basePose(2),'rx')
 
+joint1Pose = basePose + [L1 * cos(theta1); L1 * sin(theta1)];
 
+xEnd = basePose(1) + L1 * cos(theta1) + L2*cos(theta1 + theta2);
+yEnd = basePose(2) + L1 * sin(theta1) + L2*sin(theta1 + theta2);
 
-
+if checkWorkMap(joint1Pose(1), joint1Pose(2)) == 0
+    for m = 1 : size(obs,1)
+    if checkObstacles(basePose(1), basePose(2), joint1Pose(1),...
+            joint1Pose(2), obs(2,1), obs(2,2), obs(2,3)) == 0
+        hold on
+        l1 = line([basePose(1),joint1Pose(1)],[basePose(2),joint1Pose(2)]);
+        hold on
+        
+        l2 = line([joint1Pose(1),xEnd],[joint1Pose(2),yEnd]);
+        
+        hold on
+        ee = plot(xEnd, yEnd, 'bo');
+        pause(0.1);
+        delete(l1);
+        delete(l2);
+    else
+        ee = [];
+    end
+else
+    ee = [];
+end
+hold on;
 

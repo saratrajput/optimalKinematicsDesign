@@ -3,7 +3,7 @@ function [ cols ] = checkObstacles( XA, YA, XB, YB, XC, YC, R )
 %returns 1 if collides, 0 if not
 %segment AB, disc obstacle : center C, radius R
 
-Detailed explanation goes here
+
 cols = 0;
 a = ((XB-XA)^2 + (YB-YA)^2);
 b = (2*XA*(XB-XA) - 2*XC*(XB-XA) + 2*YA*(YB-YA) - 2*YC*(YB-YA));
