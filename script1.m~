@@ -101,10 +101,11 @@ for k = 1 : size(base,1)
 end
 
 % plot target area
-targetArea = [300, 300];
+% targetArea = [300, 300];
+% 
+% targetDimension = [50, 50];
 
-targetDimension = [50, 50];
-
+axis([0 400 0 400])
 rectangle('Position',[targetArea(1), targetArea(2), ...
     targetDimension(1), targetDimension(2)] );
 
@@ -115,12 +116,12 @@ originO3 = [200, 100];
 r = 50;
 
 hold on
-viscircles(originO1, r)
+viscircles(originO1, r);
 hold on
-viscircles(originO2, r)
+viscircles(originO2, r);
 hold on
-viscircles(originO3, r)
-hold on
+viscircles(originO3, r);
+    hold on
 for i = 1:size(bestBases)
     plot(bestBases(i,1), bestBases(i,2), 'bx');
     hold on
@@ -128,7 +129,11 @@ end
 
 for i = 1 : size(bestBases,1)
     myBase = [bestBases(i,1);bestBases(i,2)];
-    plotCoverage(myBase);
+    % plotCoverage(myBase, 1) for elbow up configuration
+    % plotCoverage(myBase, 2) for elbow down configuration
+    eplotCoverage(myBase, 1);
+%     delete(ee);
+%     hold on;
 end
 % plotGraph([201,251])
 %% Plotting best bases
@@ -157,16 +162,3 @@ end
 % End process timer
 toc
 
-% % Construct a questdlg with three options
-%         choice = questdlg('Choose an arm configuration', ...
-%             'Arm configuration', ...
-%             'Left hand','Right hand','Left hand');
-%         % Handle response
-%         switch choice
-%             case 'Left hand'
-%                 title([choice ' configuration chosen.'])
-%                 plotmotion.conf = 2;
-%             case 'Right hand'
-%                 title([choice ' configuration chosen.'])
-%                 plotmotion.conf = 1;
-%         end

@@ -44,7 +44,7 @@ workMap(originO2(1)-r/2: originO2(1)+r/2, originO2(2)-r/2: originO2(2)+r/2) = 1;
 workMap(originO3(1)-r/2: originO3(1)+r/2, originO3(2)-r/2: originO3(2)+r/2) = 1;
 
 
-%% plots
+%% get best base
 % cols = checkObstacles( originO1(1), originO1(2), originO2(1), originO2(2), originO3(1), originO3(2), r )
 base = [];
 
@@ -100,27 +100,19 @@ for k = 1 : size(base,1)
     end
 end
 
-% plot target area
-targetArea = [300, 300];
-
-targetDimension = [50, 50];
-
+%% plot
+axis([0 400 0 400])
 rectangle('Position',[targetArea(1), targetArea(2), ...
     targetDimension(1), targetDimension(2)] );
 
 % plot obstacles
-originO1 = [300, 150];
-originO2 = [100, 300];
-originO3 = [200, 100];
-r = 50;
-
 hold on
-viscircles(originO1, r)
+viscircles(originO1, r);
 hold on
-viscircles(originO2, r)
+viscircles(originO2, r);
 hold on
-viscircles(originO3, r)
-hold on
+viscircles(originO3, r);
+    hold on
 for i = 1:size(bestBases)
     plot(bestBases(i,1), bestBases(i,2), 'bx');
     hold on
@@ -128,45 +120,12 @@ end
 
 for i = 1 : size(bestBases,1)
     myBase = [bestBases(i,1);bestBases(i,2)];
-    plotCoverage(myBase);
-end
-% plotGraph([201,251])
-%% Plotting best bases
-% for iter = 1 : size(bestBases,1)
-% myBase = [bestBases(iter,1);bestBases(iter,2)];
-% eePos = [];
-% 
-% for m = targetArea(1):10:targetArea(1)+targetDimension(1)
-%     for n = targetArea(2):10:targetArea(2)+targetDimension(2)
-%         [ thetaup1, thetaup2, thetadown1, thetadown2] = igm( m, n, ...
-%             myBase(1), myBase(2),L1, L2);
-%         
-% %         if checkThetaLimit(thetaup1, thetaup2) == 1
-% %             endEffectorPos = [endEffectorPos;m,n, thetaup1, thetaup2];
-%           if checkThetaLimit( thetadown1, thetadown2) == 1
-%               eePos = [eePos;m,n,thetadown1, thetadown2];
-%         end
-%     end
-% end
+    % plotCoverage(myBase, 1) for elbow up configuration
+    % plotCoverage(myBase, 2) for elbow down configuration
+    plotCoverage(myBase, 1);
 
-%% plot
-% for i = 1:size(eePos)
-%     plotGraph(myBase, eePos(i,3), eePos(i,4));
-% end
-% end
+end
+
 % End process timer
 toc
 
-% % Construct a questdlg with three options
-%         choice = questdlg('Choose an arm configuration', ...
-%             'Arm configuration', ...
-%             'Left hand','Right hand','Left hand');
-%         % Handle response
-%         switch choice
-%             case 'Left hand'
-%                 title([choice ' configuration chosen.'])
-%                 plotmotion.conf = 2;
-%             case 'Right hand'
-%                 title([choice ' configuration chosen.'])
-%                 plotmotion.conf = 1;
-%         end

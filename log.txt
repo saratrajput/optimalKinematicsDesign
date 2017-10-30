@@ -73,3 +73,12 @@ Writing description for each function.
 
 Last base position is not plotting.
 Should check plot also for elbow down position.
+--------------------------------------------------------------------------------
+
+lun 30 ott 2017, 10.45.12, CET
+Done with plot for elbow down configuration.
+
+Last base position does not plot for elbow up configuration but does for elbow 
+down configuration.
+
+Should include elbow up and down as function arguments.
